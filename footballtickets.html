@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Football Matches</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="main.html" class="logo">Ticketseller</a>
+            <div class="nav-links">
+                <a href="main.html">Home</a>
+                <a href="Contact-Us.html">Contact Us</a>
+                <a href="footballtickets.html">Football tickets</a>
+                <a href="login.html">Login</a>
+                <a href="Cart.html">shopping cart</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+      <h1>Upcoming Matches</h1>
+      <a href="Cart.html">View Cart</a>
+      <table id="ticket-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Match</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="match" id="real-madrid-vs-barcelona">
+            <td>April 1st</td>
+            <td>Real Madrid vs. Barcelona</td>
+            <td>Madrid, Spain</td>
+            <td class="price">$150</td>
+            <td>
+              <a href="#" class="view-tickets-btn">View Tickets</a>
+              <button class="add-to-cart-btn" onclick="addToCart('Real Madrid vs. Barcelona', 150, 'real-madrid-vs-barcelona')">Add to Cart</button>
+            </td>
+          </tr>
+          <tr class="match" id="manchester-united-vs-manchester-city">
+            <td>April 5th</td>
+            <td>Manchester United vs. Manchester City</td>
+            <td>Manchester, England</td>
+            <td class="price">$100</td>
+            <td>
+              <a href="#" class="view-tickets-btn">View Tickets</a>
+              <button class="add-to-cart-btn" onclick="addToCart('Manchester United vs. Manchester City', 100, 'manchester-united-vs-manchester-city' )">Add to Cart</button>
+            </td>
+          </tr>
+          <tr class="match" id="bayern-munich-vs-borussia-dortmund">
+            <td>April 9th</td>
+            <td>Bayern Munich vs. Borussia Dortmund</td>
+            <td>Munich, Germany</td>
+            <td class="price">$120</td>
+            <td>
+              <a href="#" class="view-tickets-btn">View Tickets</a>
+              <button class="add-to-cart-btn" onclick="addToCart('Bayern Munich vs. Borussia Dortmund', 120, 'bayern-munich-vs-borussia-dortmund')">Add to Cart</button>
+            </td>
+          </tr>
+          <tr class="match" id="juventus-vs-ac-milan">
+            <td>April 12th</td>
+            <td>Juventus vs. AC Milan</td>
+            <td>Turin, Italy</td>
+            <td class="price">$90</td>
+            <td>
+              <a href="#" class="view-tickets-btn">View Tickets</a>
+              <button class="add-to-cart-btn" onclick="addToCart('Juventus vs. AC Milan', 90, 'juventus-vs-ac-milan')">Add to Cart</button>
+            </td>
+          </tr>
+          <tr class="match" id="paris-saint-germain-vs-marseille">
+            <td>April 15th</td>
+            <td>Paris Saint-Germain vs. Marseille</td>
+            <td>Paris, France</td>
+            <td class="price">$110</td>
+            <td>
+              <a href="#" class="view-tickets-btn">View Tickets</a>
+              <button class="add-to-cart-btn" onclick="addToCart('Paris Saint-Germain vs. Marseille', 110,'paris-saint-germain-vs-marseille')">Add to Cart</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="about-us.html">About us</a></li>
+                <li><a href="buyinfo.html">Buy Info</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Terms-Conditions.html">Terms & Conditions</a></li>
+            </ul>
+        </nav>
+    </footer>
+  
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script>
+function addToCart(itemName, itemPrice, dataId) {
+  // Get the existing cart items from Local Storage
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  // Add the new item to the cart
+  cartItems.push({
+  name: itemName,
+  price: itemPrice,
+  dataId: dataId
+});
+
+  // Store the updated cart items in Local Storage
+  let cartItemsStr = JSON.stringify(cartItems);
+  try {
+    localStorage.setItem('cartItems', cartItemsStr);
+    console.log('Added ' + itemName + ' to cart for ' + itemPrice + '$');
+  } catch (e) {
+    console.error('Error storing cart items in Local Storage:', e);
+    // Fallback to using a cookie or session storage
+    document.cookie = 'cartItems=' + encodeURIComponent(cartItemsStr);
+    sessionStorage.setItem('cartItems', cartItemsStr);
+  }
+}
+const stripe = Stripe('pk_live_51Ms4gFBmuDpo9we22og4OgLx3ax5KSSnA5xaj3VMDjF0pXCRUTLRV1kpSI5uV1GMb3pUCDtWtVyBiKJlyXlaWehK00A6nPXt9C');
+  </script>
+  
+
+
+</body>
+</html>
